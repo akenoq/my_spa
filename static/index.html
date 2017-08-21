@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>my_spa</title>
+    <link rel = "stylesheet" type = "text/css" href = "./styles/main.css"/>
+</head>
+<body>
+
+    <div class="main-menu_blue-color" align="center">
+        <h1 class="main-menu__header_white-font-color">Главное меню</h1>
+        <button class="main-menu__button-sum_grey-color">Сумма</button>
+        <button class="main-menu__button-residual_grey-color">Разность</button>
+    </div>
+
+    <div class="box-sum_grey-color" align="center" hidden>
+        <h3>Сумма</h3>
+        <input class="box-sum__input-operand-1" type="text">
+        <br>
+        <input class="box-sum__input-operand-2" type="text">
+        <br>
+        <button class="box-sum__button-sum">Сумма</button>
+        <button class="box-sum__button-back">Back</button>
+    </div>
+
+    <div class="box-residual_grey-color" align="center" hidden>
+        <h3>Разность</h3>
+        <input class="box-residual__input-operand-1" type="text">
+        <br>
+        <input class="box-residual__input-operand-2" type="text">
+        <br>
+        <button class="box-residual__button-residual">Разность</button>
+        <button class="box-residual__button-back">Back</button>
+    </div>
+
+    <script src="./scripts/MainResultScript.js"></script>
+
+</body>
+</html>

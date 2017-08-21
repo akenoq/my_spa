@@ -1,0 +1,37 @@
+body
+{
+    font-family: "Courier 10 Pitch";
+    align-content: center;
+}
+
+.main-menu_blue-color
+{
+    background-color: steelblue;
+}
+
+.main-menu__header_white-font-color
+{
+    color: white;
+}
+
+.main-menu__button-sum_grey-color
+{
+    background-color: lightgrey;
+    color: darkslategray;
+}
+
+.main-menu__button-residual_grey-color
+{
+    background-color: lightgrey;
+    color: darkslategray;
+}
+
+.box-sum_grey-color
+{
+    background-color: lightgrey;
+}
+
+.box-residual_grey-color
+{
+    background-color: lightgrey;
+}
