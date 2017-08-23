@@ -16,6 +16,7 @@ export default class BoxShower {
         s = s.toString();
 
         this.nameBoxArr.push(s);
+
         this.len = this.nameBoxArr.length;
     }
 

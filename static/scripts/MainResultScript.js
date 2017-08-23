@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -68,11 +68,43 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BoxShower_js__ = __webpack_require__(1);
 /**
  * Created by akenoq on 21.08.17.
  */
+
+
+
+class ElementGetter {
+    takeElement(s) {
+
+        s = s.toString();
+
+        let elArr = document.getElementsByClassName(s);
+        let myEl = elArr[0];
+
+        return myEl;
+
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = ElementGetter;
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__BoxShower_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ElementGetter_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Sum_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Residual_js__ = __webpack_require__(4);
+/**
+ * Created by akenoq on 21.08.17.
+ */
+
+
+
 
 
 
@@ -81,13 +113,70 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 class MainClass {
     constructor() {
         this.boxShower = new __WEBPACK_IMPORTED_MODULE_0__BoxShower_js__["a" /* default */]();
+        this.adderToArr();
+        this.boxShower.showBox("main-menu_blue-color");
+
+        this.adderEventsToNaviButtons();
+        this.adderEventsToResultButtons();
+
+        console.log("Main Object was created");
+    }
+
+    adderToArr() {
         this.boxShower.addToArr("main-menu_blue-color");
         this.boxShower.addToArr("box-sum_grey-color");
         this.boxShower.addToArr("box-residual_grey-color");
+    }
 
-        this.boxShower.showBox("main-menu_blue-color");
+    // можно любой метод вывести в отдельный класс
+    adderEventsToNaviButtons() {
+        let elementGetter = new __WEBPACK_IMPORTED_MODULE_1__ElementGetter_js__["a" /* default */]();
 
-        console.log("Main Object was created");
+        // t обьявлена вне кнопки - область видимости класса
+        let t = this; // создаем указатель на this, чтобы видеть внутри функции кнопки
+
+        let butSum = elementGetter.takeElement("main-menu__button-sum_grey-color");
+        butSum.addEventListener("click", function () {
+            t.boxShower.showBox("box-sum_grey-color");
+        });
+
+        let butRes = elementGetter.takeElement("main-menu__button-residual_grey-color");
+        butRes.addEventListener("click", function () {
+            t.boxShower.showBox("box-residual_grey-color");
+        });
+
+        let boxSumButBack = elementGetter.takeElement("box-sum__button-back");
+        boxSumButBack.addEventListener("click", function () {
+            t.boxShower.showBox("main-menu_blue-color");
+        });
+
+        let boxResButBack = elementGetter.takeElement("box-residual__button-back");
+        boxResButBack.addEventListener("click", function () {
+            t.boxShower.showBox("main-menu_blue-color");
+        });
+    }
+
+    adderEventsToResultButtons() {
+        let elementGetter = new __WEBPACK_IMPORTED_MODULE_1__ElementGetter_js__["a" /* default */]();
+
+        // t обьявлена вне кнопки - область видимости класса
+        let t = this; // создаем указатель на this, чтобы видеть внутри функции кнопки
+
+        let boxSumButResult = elementGetter.takeElement("box-sum__button-sum");
+        boxSumButResult.addEventListener("click", function () {
+           let objSum = new __WEBPACK_IMPORTED_MODULE_2__Sum_js__["a" /* default */]();
+           let sum = objSum.getSum();
+
+           alert("summa = " + sum);
+        });
+
+        let boxResButResult = elementGetter.takeElement("box-residual__button-residual");
+        boxResButResult.addEventListener("click", function () {
+            let objResidual = new __WEBPACK_IMPORTED_MODULE_3__Residual_js__["a" /* default */]();
+            let residual = objResidual.getResidual();
+
+            alert("residual = " + residual);
+        });
     }
 }
 
@@ -97,11 +186,11 @@ window.addEventListener("load",function () {
 });
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ElementGetter_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ElementGetter_js__ = __webpack_require__(0);
 /**
  * Created by akenoq on 21.08.17.
  */
@@ -120,6 +209,7 @@ class BoxShower {
         s = s.toString();
 
         this.nameBoxArr.push(s);
+
         this.len = this.nameBoxArr.length;
     }
 
@@ -150,29 +240,63 @@ class BoxShower {
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ElementGetter_js__ = __webpack_require__(0);
 /**
- * Created by akenoq on 21.08.17.
+ * Created by akenoq on 23.08.17.
  */
 
 
 
-class ElementGetter {
-    takeElement(s) {
+"use strict";
 
-        s = s.toString();
+class Sum {
+    constructor() {
+        let elem = new __WEBPACK_IMPORTED_MODULE_0__ElementGetter_js__["a" /* default */]();
 
-        let elArr = document.getElementsByClassName(s);
-        let myEl = elArr[0];
+        this.operand1 = elem.takeElement("box-sum__input-operand-1");
+        this.operand2 = elem.takeElement("box-sum__input-operand-2");
+    }
 
-        return myEl;
-
+    getSum() {
+        let sum = parseInt(this.operand1.value) + parseInt(this.operand2.value);
+        return sum;
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = ElementGetter;
+/* harmony export (immutable) */ __webpack_exports__["a"] = Sum;
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ElementGetter_js__ = __webpack_require__(0);
+/**
+ * Created by akenoq on 23.08.17.
+ */
+
+
+
+"use strict";
+
+class Residual {
+    constructor() {
+        let elem = new __WEBPACK_IMPORTED_MODULE_0__ElementGetter_js__["a" /* default */]();
+
+        this.operand1 = elem.takeElement("box-residual__input-operand-1");
+        this.operand2 = elem.takeElement("box-residual__input-operand-2");
+    }
+
+    getResidual() {
+        let residual = Math.abs(parseInt(this.operand1.value) - parseInt(this.operand2.value));
+        return residual;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Residual;
 
 
 /***/ })
